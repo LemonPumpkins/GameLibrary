@@ -1,0 +1,16 @@
+{{#each games}}
+<div class="card card-body">
+    
+    <h4>{{this/title}}</h4>
+    <p>{{price}}</p>
+    <p>{{description}}</p>
+    <a href="/game/gameentry/gameentryedit/{{id}}" class="btn btn-block btn-dark btn-lg">Get gameb</a>
+    <form action= "/game/gamedelete/{{id}}?_method=DELETE" method="POST">
+<input type="hidden" name="_method" value="DELETE">
+<input type="submit" class="btn btn-block btn-danger" value="Delete Game">
+</form>
+</div>
+{{else}}
+<p>no games :(</p>
+{{/each}}
+
