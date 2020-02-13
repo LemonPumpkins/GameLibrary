@@ -7,7 +7,7 @@ var flash = require('connect-flash');
 var bodyparser = require("body-parser");
 var passport = require("passport");
 
-var db = requre('./helper/database');
+var db = require('./helper/database');
 var mongoose = require("mongoose");
 var app = express();
 
