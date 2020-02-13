@@ -2,6 +2,7 @@ var express = require("express");
 var bcrypt = require("bcryptjs");
 var mongoose = require("mongoose");
 var router = express.Router();
+var passport = require('passport');
 
 //load user model
 require("../models/User");
@@ -14,6 +15,14 @@ router.get('/login', function(req, res){
 router.get('/register', function(req, res){
     res.render("users/register");
 });
+router.post('/login', function(req, res, next){
+    passport.authenticate('local', {
+        successRedirect:'/game/games', 
+        failureRedirect:'/users/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
 router.post('/register', function(req, res){
 var errors = [];
 if(req.body.password != req.body.password2){
@@ -33,11 +42,12 @@ if(errors.length > 0){
     });
 
 bcrypt.genSalt(10, function(err, salt){
-    bcrypt.hash(new newUser.password, salt, function(err, hash){
+    bcrypt.hash( newUser.password, salt, function(err, hash){
         if(err)throw err;
         newUser.password = hash;
         newUser.save().then(function(user){
-            res.redirect('/user/login');
+            req.flash("success_msg", "Registered!");
+            res.redirect('/users/login');
     }).catch(function(err){
         console.log(err);
         return;
@@ -47,4 +57,11 @@ bcrypt.genSalt(10, function(err, salt){
     });
 }
 });
+
+router.get('/logout', function(req, res){
+    req.logout();
+    req.flash("success_msg", "You're logged out baby woo!");
+    res.redirect('/users/login');
+});
+
 module.exports = router;

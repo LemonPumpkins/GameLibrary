@@ -10,6 +10,10 @@ var GameSchema = new Schema({
     },
     description:{
         type:String
+    },
+    user:{
+        type:String,
+        required:true
     }
 });
 
