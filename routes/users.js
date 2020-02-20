@@ -23,13 +23,13 @@ router.post('/login', function(req, res, next){
     })(req, res, next);
 });
 
-router.post('/users/register', function(req, res){
+router.post('/register', function(req, res){
 var errors = [];
 if(req.body.password != req.body.password2){
     errors.push({text:"Passwords do not match"})
 }
 if(errors.length > 0){
-    res.render('register',{
+    res.render('users/register',{
         errors:errors,
         name:req.body.name,
         email:req.body.email

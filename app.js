@@ -20,7 +20,7 @@ var users = require('./routes/users')
 require('./config/passport')(passport);
 
 //connect to mongoose
-mongoose.connect(db.mongoURI,{
+mongoose.connect("mongodb+srv://Lemon:Lemon@cluster0-zl3cf.mongodb.net/test?retryWrites=true&w=majority",{
     useNewUrlParser:true,
     useUnifiedTopology: true
 }).then(function(){
